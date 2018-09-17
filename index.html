@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>Alistair's Weather App</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+        <script type="text/javascript" src="weather.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    
+    <body>
+        
+        <div id="startScreen">
+            <div id="startScreenContents">
+                <h1>Black and White Weather</h1>
+                <span id="buttonSpan">
+                    <button id="useLocation">Use your current location?</button>
+                    <button id="searchLocation">Search for a location?</button> 
+                </span>
+                <br>
+                <span id="searchSpan">
+                    <input type="text" id="locationName" placeholder="Enter location..." autofocus>
+                    <br>
+                    <button id="submitSearch">Search</button> 
+                    <button id="cancelSearch">Cancel</button> 
+                </span>
+            </div>
+        </div>
+        
+        <div id="loadingScreen">
+            <div id="loadScreenDiv">
+                <h1>Loading...</h1>
+            </div>
+        </div>
+        
+        <div id="main">
+
+            <div id="results">
+
+                <div id="currently">
+
+                    <div id="currentInfo">
+                        <div id="currentLocation"></div>
+                    </div>
+                    
+                    <div class="scrollLink">
+                        <a href="#hourly">Hourly<br><img src="images/down-arrow.png"></a>
+                    </div>
+
+                </div>
+                
+                <div id="hourly">
+                    <div id="hourlyChart">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <div class="scrollLink">
+                        <a href="#forecast">Forecast<br><img src="images/down-arrow.png"></a>
+                    </div>
+                </div>
+
+                <div>
+
+                    <div id="forecast">
+                    
+                    </div>
+
+                </div>
+
+            </div>
+            
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Permanent+Marker');
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* ---- START OF CSS ---- */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+/* --- START SCREEN CSS --- */
+
+#startScreen{
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	background-color: black;
+	overflow: hidden;
+	text-align: center;
+	background-position-y: no-repeat; 
+} 
+
+#startScreen h1{
+    color: white;
+    text-align: center;
+    font-size: 4em;
+    padding-bottom: 1em;
+    font-family: 'Permanent Marker', sans-serif;
+}
+
+#startScreen h2 {
+    color: white;
+    text-align: center;
+    font-size: 2em;
+}
+
+
+#startScreenContents {
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    right: 25%;
+    top: 200px;
+    height: 50%;
+}
+
+
+#startScreen button {
+    background-color: black;
+    border: 2px solid white;
+    margin: 40px;
+    width: 300px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5em;
+    cursor: pointer;
+    
+}
+
+#searchSpan {
+    display: none; 
+}
+
+input {
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 2px solid white;
+}
+
+#loadingScreen {
+    display: none;
+    position: relative;
+    background: black no-repeat center center fixed; 
+    background-size: cover;
+    height: 100vh;
+    -webkit-filter: grayscale(100%);
+    filter: gray;
+}
+
+#loadingScreen h1 {
+    font-size: 5em;
+    font-family: 'Permanent Marker', sans-serif;
+    color: white;
+}
+
+#loadScreenDiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+#locationName {
+    width: 300px;
+    padding: 12px 20px;
+    font-size: 30px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-bottom: 4px solid white;
+}
+
+#results {
+    display: none;
+	text-align: center; 
+}
+
+#currently {
+    height: 100vh;
+    position: relative;
+    background: url(backgrounds/clear-day.jpg) no-repeat center center fixed; 
+    background-size: cover;
+    -webkit-filter: grayscale(100%);
+    filter: gray;
+}
+
+.scrollLink {
+}
+
+.scrollLink a {
+    text-decoration: none;
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    bottom: 20;
+    transform: translate(-50%, 0);
+    font-family: 'Permanent Marker', sans-serif;
+    padding: 10px 30px;
+    border: 2px solid black;
+    background: rgba(0, 0, 0, .5);
+    color: white;
+}
+
+.scrollLink a:visited {
+    color: white;
+}
+
+.scrollLink a img {
+    width: 4em;
+    filter: invert(100%);
+}
+
+#currentInfo {
+    position: absolute;
+    width: 800px;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    max-width: 800px;
+    width: 95%;
+    border: 10px solid black;
+    background: rgba(0, 0, 0, .5);
+    color: white;
+}
+
+#currentInfo h1 {
+    font-size: 2em;
+}
+
+#currentTemp {
+    font-size: 10em;
+    text-align: right;
+}
+
+#currentLocation {
+    text-align: left;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding-bottom: 10px;
+}
+
+.currentDay, .currentDate, .currentTime {
+    text-align: left;
+}
+
+#hourly {
+    position: relative;
+    height: 100vh;
+}
+
+#myChart {
+    position: absolute;
+    max-width: 1200px;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+#forecast {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 95%;
+	margin: auto;
+}
+
+#forecast ul {
+    position: relative;
+    width: 46%;
+    margin: 1%;
+    text-align: center;
+    border: 1px solid black;
+    height: 30%;
+}
+
+#forecast ul li:first-child {
+    font-size: 2em;
+    font-weight: 700;
+    background-color: black;
+    color: white;
+}
+
+#forecast ul li:nth-last-child(2) {
+    position: absolute;
+    font-size: 2em;
+    font-weight: 700;
+    background-color: black;
+    color: white;
+    bottom: 0;
+    width: 100%;
+}
+
+#forecast ul li {
+    padding: 5px 0;
+    font-size: 1.3em;
+}
+
+.forecastIcon {
+    height: 4em;
+    width: 4em;
+}
+
+p.minTemp {
+    float: left;
+    padding-left: 5px;
+}
+
+p.maxTemp {
+    float: right;
+    padding-right: 5px;
+
+}
+
