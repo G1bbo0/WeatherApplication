@@ -1,4 +1,4 @@
-<html>
+<html lang="en-au">
     <head>
         <title>Alistair's Weather App</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -11,14 +11,16 @@
         
         <div id="startScreen">
             <div id="startScreenContents">
-                <h1>Black and White Weather</h1>
+                <h1><span class="textOutline">Black</span> and White Weather</h1>
                 <span id="buttonSpan">
                     <button id="useLocation">Use your current location?</button>
-                    <button id="searchLocation">Search for a location?</button> 
+                    <button id="searchLocation">Search for a <br>location?</button> 
                 </span>
                 <br>
                 <span id="searchSpan">
                     <input type="text" id="locationName" placeholder="Enter location..." autofocus>
+                    <br>
+                    <label for="locationName">Location Name</label>
                     <br>
                     <button id="submitSearch">Search</button> 
                     <button id="cancelSearch">Cancel</button> 
@@ -29,6 +31,13 @@
         <div id="loadingScreen">
             <div id="loadScreenDiv">
                 <h1>Loading...</h1>
+            </div>
+        </div>
+        
+        <div id="tryAgainScreen">
+            <div id="tryAgainDiv">
+                <h1>No location found!</h1>
+                <button id="tryAgain">Try again</button> 
             </div>
         </div>
         
@@ -43,7 +52,7 @@
                     </div>
                     
                     <div class="scrollLink">
-                        <a href="#hourly">Hourly<br><img src="images/down-arrow.png"></a>
+                        <a href="#hourly">Hourly<br><img src="images/down-arrow.png" alt="Down arrow to scroll the page"></a>
                     </div>
 
                 </div>
@@ -53,7 +62,7 @@
                         <canvas id="myChart"></canvas>
                     </div>
                     <div class="scrollLink">
-                        <a href="#forecast">Forecast<br><img src="images/down-arrow.png"></a>
+                        <a href="#forecast">Forecast<br><img src="images/down-arrow.png" alt="Down arrow to scroll the page"></a>
                     </div>
                 </div>
 

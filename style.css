@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Permanent+Marker');
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -56,12 +56,15 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
     scroll-behavior: smooth;
 }
 
-/* --- START SCREEN CSS --- */
+html, body, button, input {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+}
+
+/* --- START OF START SCREEN CSS --- */
 
 #startScreen{
 	width: 100vw;
@@ -78,7 +81,16 @@ html, body {
     text-align: center;
     font-size: 4em;
     padding-bottom: 1em;
-    font-family: 'Permanent Marker', sans-serif;
+    font-weight: 700;
+}
+
+.textOutline {
+    color: black;
+    text-shadow:
+    -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white;
 }
 
 #startScreen h2 {
@@ -90,9 +102,9 @@ html, body {
 
 #startScreenContents {
     position: absolute;
-    width: 50%;
-    left: 25%;
-    right: 25%;
+    width: 90%;
+    left: 5%;
+    right: 5%;
     top: 200px;
     height: 50%;
 }
@@ -125,6 +137,10 @@ input[type=text]:focus {
     border: 2px solid white;
 }
 
+/* --- END OF START SCREEN CSS --- */
+
+/* --- START OF LOADING SCREEN CSS --- */
+
 #loadingScreen {
     display: none;
     position: relative;
@@ -137,7 +153,7 @@ input[type=text]:focus {
 
 #loadingScreen h1 {
     font-size: 5em;
-    font-family: 'Permanent Marker', sans-serif;
+    font-family: 'Lato', sans-serif;
     color: white;
 }
 
@@ -148,6 +164,54 @@ input[type=text]:focus {
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
+
+
+
+/* --- END OF LOADING SCREEN CSS --- */
+
+/* --- START OF TRY AGAIN SCREEN CSS --- */
+
+#tryAgainScreen {
+    display: none;
+    position: relative;
+    background: black no-repeat center center fixed; 
+    background-size: cover;
+    height: 100vh;
+    -webkit-filter: grayscale(100%);
+    filter: gray;
+}
+
+#tryAgainScreen h1 {
+    font-size: 5em;
+    font-family: 'Permanent Marker', sans-serif;
+    color: white;
+}
+
+#tryAgainDiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+#tryAgain {
+    position: relative;
+    background-color: black;
+    border: 2px solid white;
+    margin: auto;
+    width: 100%;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+/* --- END OF TRY AGAIN SCREEN CSS --- */
+
+/* --- START OF RESULTS SCREEN CSS --- */
 
 #locationName {
     width: 300px;
@@ -169,13 +233,10 @@ input[type=text]:focus {
 #currently {
     height: 100vh;
     position: relative;
-    background: url(backgrounds/clear-day.jpg) no-repeat center center fixed; 
+    background: no-repeat center center fixed; 
     background-size: cover;
     -webkit-filter: grayscale(100%);
     filter: gray;
-}
-
-.scrollLink {
 }
 
 .scrollLink a {
@@ -185,7 +246,7 @@ input[type=text]:focus {
     margin-right: -50%;
     bottom: 20;
     transform: translate(-50%, 0);
-    font-family: 'Permanent Marker', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: 10px 30px;
     border: 2px solid black;
     background: rgba(0, 0, 0, .5);
@@ -203,15 +264,12 @@ input[type=text]:focus {
 
 #currentInfo {
     position: absolute;
-    width: 800px;
     padding: 20px;
     top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    text-align: center;
-    max-width: 800px;
-    width: 95%;
+    width: 800px;
     border: 10px solid black;
     background: rgba(0, 0, 0, .5);
     color: white;
@@ -269,7 +327,7 @@ input[type=text]:focus {
     margin: 1%;
     text-align: center;
     border: 1px solid black;
-    height: 30%;
+    min-height: 285px;
 }
 
 #forecast ul li:first-child {
@@ -295,8 +353,8 @@ input[type=text]:focus {
 }
 
 .forecastIcon {
-    height: 4em;
-    width: 4em;
+    height: 6em;
+    width: 6em;
 }
 
 p.minTemp {
@@ -310,3 +368,36 @@ p.maxTemp {
 
 }
 
+@media only screen and (max-width: 900px) {
+    
+    #startScreen button {
+        margin: 10px 40px;
+    }
+    
+    #currentInfo {
+        width: 70%;
+        left: 50%;
+        top: 50%;
+    }
+    
+    #currentTemp {
+    font-size: 8em;
+    text-align: center;
+    }
+    
+    
+    #forecast ul {
+        width: 98%;
+    }
+    
+    .scrollLink {
+        display: none;
+    }
+
+}
+
+@media only screen and (max-height: 860px) {
+    .scrollLink {
+        display: none;
+    }
+}

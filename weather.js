@@ -2,8 +2,10 @@ $(document).ready(function(){
     
     $(document).ajaxStart(function(){
             $('#loadingScreen').show();
+            $('#main').hide();
         }).ajaxStop(function() {
             $('#loadingScreen').hide();
+            $('#main').show();
         });
                                 
     //var locationName = prompt("Please enter a location");
@@ -13,12 +15,14 @@ $(document).ready(function(){
     $("#useLocation").click(function(){
         
         $('#loadingScreen').show();
+        $('#main').hide();
     
         if (navigator.geolocation) {
 
             function success(pos) {
                 
                 $('#loadingScreen').show();
+                $('#main').hide();
                 var crds = pos.coords;
 
                 // Set the string for the coordinates for DarkSky API
@@ -53,22 +57,21 @@ $(document).ready(function(){
             navigator.geolocation.getCurrentPosition(success, error);
         } 
         
-        $('#startScreen').css("height","0");
-        $('#results').css({
-            display: 'block'
-        });
-        //$('#results').css("display","block");
+        $('#startScreen').hide();
+        $('#results').show();
     
     });
     
     
     $("#searchLocation").click(function(){
         $('#searchSpan').slideDown();
+        $('#locationName').focus();
         $('#buttonSpan').slideUp();
     });
     
     $("#cancelSearch").click(function(){
         $('#searchSpan').slideUp();
+        $('#locationName').val("");
         $('#buttonSpan').slideDown();
     });
     
@@ -78,8 +81,7 @@ $(document).ready(function(){
         if (locationName !== "" && locationName !== undefined) {
             getLocationCoords(locationName);
         
-            $('#results').slideDown(1000);
-            $('#startScreen').slideUp(1000);
+            
             
         }
     });
@@ -102,24 +104,43 @@ function getLocationName(latLngCoords) {
     var geocodeURL = "https://api.opencagedata.com/geocode/v1/json?q=" + latLngCoords + "&key=" + apikey;
 
     $.get(geocodeURL, function(locationData) {
-        //console.log(locationData.results[0]);
+        console.log(locationData.results[0]);
 
         var locationComponent = locationData.results[0].components;
         
         var locationCity = "";
         
         if (locationComponent.city !== undefined) { 
-            locationCity = locationComponent.city + ", ";
-        };
+            locationCity = locationComponent.city;
+        } else if (locationComponent.suburb !== undefined) {
+            locationCity = locationComponent.suburb;
+        } else if (locationComponent.locality !== undefined) {
+            locationCity = locationComponent.locality;
+        } else if (locationComponent.state !== undefined) {
+            locationCity = locationComponent.state;
+        } else {
+            locationCity = undefined;
+        }
         
         var locationState = "";
         
         if (locationComponent.state_code !== undefined) { 
             locationState = locationComponent.state_code;
-        };
+        } else if (locationComponent.country !== undefined) {
+            locationState = locationComponent.country;
+        } else {
+            locationState = undefined;
+        }
+        
+        if (locationCity !== undefined && locationState !== undefined) {
+            var locString = locationCity + ", " + locationState;
+        } else if (locationCity !== undefined) {
+            var locString = locationCity;
+        } else {
+            var locString = locationState;
+        }
 
-        var locString = locationCity + locationState;
-
+        
         var location = $("<h1>").text(locString);
 
         $("#currentLocation").append(location);
@@ -142,11 +163,31 @@ function getLocationCoords(locationName) {
             var geometry = result.results[0].geometry;
             outputCoords = geometry.lat + "," + geometry.lng;
             locationNameCoords = geometry.lat + "+" + geometry.lng;
-            
+                        
             getLocationName(locationNameCoords);
             
             getWeatherData(outputCoords);
-        }
+            
+            $('#results').show();
+            $('#startScreen').hide();
+        } else {
+            locationNotFound();
+        } 
+    });
+}
+
+function locationNotFound() {
+    $('#main').hide();
+    $('#loadingScreen').hide();
+    $('#tryAgainScreen').show();
+    
+    
+    $("#tryAgain").click(function(){
+        $('#tryAgainScreen').hide();
+        $('#startScreen').show();
+        $('#searchSpan').hide();
+        $('#buttonSpan').show();
+        $('#locationName').val("");
     });
 }
 
@@ -157,7 +198,7 @@ function getWeatherData(currentLocation) {
     var key = "fe22622bb357032c5853005760b83172";
 
     // API Call
-    var url = "https://api.darksky.net/forecast/" + key + "/" + currentLocation + "?units=auto";
+    var url = "https://api.darksky.net/forecast/" + key + "/" + currentLocation + "?units=si";
     
     $.get(url, function(data){
         
@@ -205,7 +246,7 @@ function getWeatherData(currentLocation) {
         var chartLabels = [];
         var chartData = [];
         
-        Chart.defaults.global.defaultFontFamily = "Open Sans";
+        Chart.defaults.global.defaultFontFamily = "Lato";
         Chart.defaults.global.defaultFontSize = 18;
 
 
@@ -213,7 +254,7 @@ function getWeatherData(currentLocation) {
         for (var i = data.hourly.data.length-1; i >= data.hourly.data.length-12; i--) {
             var hourlyInfo = data.hourly.data[i];
             
-            console.log(hourlyInfo);
+            //console.log(hourlyInfo);
             
             var hourlyTime = new Date(hourlyInfo.time*1000).toLocaleTimeString('en-AU',{
 	           hour12: true,
@@ -244,10 +285,7 @@ function getWeatherData(currentLocation) {
         },
 
         // Configuration options go here
-        options: {
-            
-        }
-            
+        options: { }
         });
         
         
@@ -270,7 +308,7 @@ function getWeatherData(currentLocation) {
                 list.append("<li>" + days[date.getDay()] + "</li>")
             }
 
-            list.append("<li>" + f.summary + "</li>").append("<li>UV Index | " + f.uvIndex + "</li>").append("<li>Chance of rain | " + rainChance + "</li>");
+            list.append("<li>" + f.summary + "</li>").append("<li>UV Index: " + f.uvIndex + "</li>").append("<li>Chance of rain: " + rainChance + "</li>");
             
             var icon = f.icon;
             
@@ -279,7 +317,7 @@ function getWeatherData(currentLocation) {
             var minTemp = Math.round(f.temperatureMin) + "&deg;C";
             var maxTemp = Math.round(f.temperatureMax) + "&deg;C";
             
-            list.append("<li><p class='minTemp'>Min | " + minTemp + "</p><p class='maxTemp'>Max | " + maxTemp + "</p></li><div style='clear: both;'></div>")
+            list.append("<li><p class='minTemp'>Min: " + minTemp + "</p><p class='maxTemp'>Max: " + maxTemp + "</p></li><div style='clear: both;'></div>")
 
             //append the tr to the table
             $("#forecast").append(list);
